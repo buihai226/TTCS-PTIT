@@ -12,6 +12,10 @@ Here are the detailed weekly reports outlining the project’s progress:
 - Date: March 21, 2025*  
   In the second week, i am learning about models in Deep Learning(CNN,...), next i am learning about object detection with YOLO(starting from YOLO v1)
 
+- Date: March 28, 2025*  
+  This week, I am collecting data about license plates by taking photos from parking lots, schools, etc. I also try to use LabelImg to label the data in YOLO format.
+  After reading the documentation about YOLO, I decided to use YOLOv5 to train my model.
+
 ## Vietnamese Plate Dataset
 Here are a dataset that i collect from Google(include plate & character):
 - [Dataset](https://drive.google.com/drive/folders/1kZ6iwGgxLBeuGYUQKwlVgrgqopQnKEXZ?usp=sharing)
