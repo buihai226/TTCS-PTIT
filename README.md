@@ -12,6 +12,10 @@ Here are the detailed weekly reports outlining the project’s progress:
 - Date: March 21, 2025*  
   In the second week, i am learning about models in Deep Learning(CNN,...), next i am learning about object detection with YOLO(starting from YOLO v1)
 
+## Vietnamese Plate Dataset
+Here are a dataset that i collect from Google(include plate & character):
+
+
 ## 👨‍💻 Contributor
 
 - **Bùi Xuân Hải**  
