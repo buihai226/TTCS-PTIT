@@ -14,6 +14,7 @@ Here are the detailed weekly reports outlining the project’s progress:
 
 ## Vietnamese Plate Dataset
 Here are a dataset that i collect from Google(include plate & character):
+- [Dataset](https://drive.google.com/drive/folders/1kZ6iwGgxLBeuGYUQKwlVgrgqopQnKEXZ?usp=sharing)
 
 
 ## 👨‍💻 Contributor
