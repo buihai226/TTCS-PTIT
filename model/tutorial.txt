@@ -1,8 +1,0 @@
-python train.py --img 640 --batch 16 --epochs 50 --data dataset.yaml --weights yolov5s.pt --name my_yolo_model
-
-test:
-pythony --we detect.pights runs/train/my_yolo_model2/weights/best.pt --img 640 --conf 0.25 --source /teamspace/studios/this_studio/TTCS-PTIT/input_test_1.jpg
-
-model: 
-./yolov5/run
-
