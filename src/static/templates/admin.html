@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Hệ thống Nhận Diện Biển Số Xe</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/admin.css">
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+                <div class="position-sticky pt-3">
+                    <div class="px-3 py-4 d-flex justify-content-between align-items-center">
+                        <a href="index.html" class="text-white text-decoration-none">
+                            <h5 class="m-0">ALPR System</h5>
+                        </a>
+                        <button class="btn btn-link d-md-none text-white" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="admin.html">
+                                <i class="fas fa-tachometer-alt me-2"></i>
+                                Dashboard
+                            </a>
+                        </li>
+                        <!--<li class="nav-item">
+                            <a class="nav-link" href="admin-records.html">
+                                <i class="fas fa-history me-2"></i>
+                                Lịch sử nhận diện
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin-users.html">
+                                <i class="fas fa-users me-2"></i>
+                                Quản lý người dùng
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="admin-settings.html">
+                                <i class="fas fa-cog me-2"></i>
+                                Cài đặt hệ thống
+                            </a>
+                        </li> -->
+                        <li class="nav-item mt-3">
+                            <a class="nav-link logout-link" href="#">
+                                <i class="fas fa-sign-out-alt me-2"></i>
+                                Đăng xuất
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <button type="button" class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-download me-1"></i> Xuất báo cáo
+                        </button>
+                        <button type="button" class="btn btn-sm btn-primary" id="refreshBtn">
+                            <i class="fas fa-sync-alt me-1"></i> Làm mới
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <!-- Admin info card -->
+                    <div class="col-md-6 mb-4">
+                        <div class="card border-0 shadow-sm h-100">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center">
+                                    <div class="admin-avatar">
+                                        <i class="fas fa-user-shield"></i>
+                                    </div>
+                                    <div class="ms-3">
+                                        <h4 id="admin-name" class="mb-1">Nguyễn Văn A</h4>
+                                        <p class="text-muted mb-0">Quản trị viên hệ thống</p>
+                                        <p id="admin-email" class="text-muted mb-0">admin@example.com</p>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="d-flex justify-content-between mt-3">
+                                    <div>
+                                        <p class="mb-0"><strong>Đăng nhập lần cuối:</strong></p>
+                                        <p class="text-muted" id="last-login">Hôm nay, 08:45</p>
+                                    </div>
+                                    <a href="admin-settings.html" class="btn btn-sm btn-outline-primary align-self-center">
+                                        <i class="fas fa-user-cog me-1"></i> Cài đặt tài khoản
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Statistics cards -->
+                    <div class="col-md-6 mb-4">
+                        <div class="row g-3">
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm bg-primary text-white h-100">
+                                    <div class="card-body">
+                                        <h3 id="total-detections" class="card-title">1,234</h3>
+                                        <p class="card-text mb-0">Tổng biển số đã nhận diện</p>
+                                        <small><i class="fas fa-arrow-up me-1"></i>12% so với tháng trước</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm bg-success text-white h-100">
+                                    <div class="card-body">
+                                        <h3 id="total-users" class="card-title">48</h3>
+                                        <p class="card-text mb-0">Người dùng đã đăng ký</p>
+                                        <small><i class="fas fa-arrow-up me-1"></i>5 người dùng mới</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm bg-info text-white h-100">
+                                    <div class="card-body">
+                                        <h3 id="today-detections" class="card-title">56</h3>
+                                        <p class="card-text mb-0">Biển số nhận diện hôm nay</p>
+                                        <small>Cập nhật gần nhất: <span id="last-update">08:45</span></small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="card border-0 shadow-sm bg-warning text-white h-100">
+                                    <div class="card-body">
+                                        <h3 id="accuracy-rate" class="card-title">95.7%</h3>
+                                        <p class="card-text mb-0">Độ chính xác trung bình</p>
+                                        <small><i class="fas fa-arrow-up me-1"></i>2.1% so với tháng trước</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent detections -->
+                <div class="row">
+                    <div class="col-12 mb-4">
+                        <div class="card border-0 shadow-sm">
+                            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Nhận diện gần đây</h5>
+                                <a href="admin-records.html" class="btn btn-sm btn-link">
+                                    Xem tất cả <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-hover" id="recentDetectionsTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">ID</th>
+                                                <th scope="col">Biển số xe</th>
+                                                <th scope="col">Độ chính xác</th>
+                                                <th scope="col">Thời gian</th>
+                                                <th scope="col">Người dùng</th>
+                                                <th scope="col">Hành động</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Data will be populated by JavaScript -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+    <!-- Custom JS -->
+    <script src="../js/admin.js"></script>
+</body>
+</html>

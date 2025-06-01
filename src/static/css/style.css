@@ -1,17 +1,16 @@
-/* General Styles */
 body {
     background-color: #f8f9fa;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .border-dashed {
+}
+
+.border-dashed {
     border-style: dashed !important;
     border-width: 2px !important;
     border-color: #dee2e6 !important;
-  }
-  
-  /* Upload Zone */
-  .drop-zone {
+}
+
+/* Upload Zone */
+.drop-zone {
     min-height: 300px;
     display: flex;
     flex-direction: column;
@@ -19,66 +18,65 @@ body {
     align-items: center;
     cursor: pointer;
     transition: all 0.3s ease;
-  }
-  
-  .drop-zone:hover {
+}
+
+.drop-zone:hover {
     background-color: #f8f9fa;
-  }
-  
-  .upload-icon {
+}
+
+.upload-icon {
     font-size: 3rem;
     color: #6c757d;
-  }
-  
-  /* Preview */
-  .img-preview,
-  .video-preview {
+}
+
+/* Preview */
+.img-preview,
+.video-preview {
     max-width: 100%;
     max-height: 300px;
     margin: 0 auto;
     display: block;
-  }
-  
-  /* Results */
-  .result-icon {
+}
+
+/* Results */
+.result-icon {
     font-size: 3rem;
     color: #6c757d;
-  }
-  
-  .license-plate-display {
+}
+
+.license-plate-display {
     background-color: #f8f9fa;
     border-radius: 8px;
-  }
-  
-  .result-details {
+}
+
+.result-details {
     margin-top: 1rem;
-  }
-  
-  .result-item {
+}
+
+.result-item {
     display: flex;
     justify-content: space-between;
     padding: 0.5rem 0;
     border-bottom: 1px solid #eee;
-  }
-  
-  .result-item:last-child {
+}
+
+.result-item:last-child {
     border-bottom: none;
-  }
-  
-  .result-label {
+}
+
+.result-label {
     font-weight: 500;
     color: #6c757d;
-  }
-  
-  .result-value {
+}
+
+.result-value {
     font-weight: 500;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 768px) {
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
     .drop-zone {
-      min-height: 200px;
+        min-height: 200px;
     }
-  }
-  
-  
+}
+

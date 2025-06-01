@@ -6,7 +6,7 @@ import shutil
 
 router = APIRouter()
 
-COLAB_API_URL = "https://xxxx.ngrok.io/process"  # Thay bằng URL từ ngrok
+COLAB_API_URL = "https://xxxx.ngrok.io/process"  
 
 @router.post("/recognize")
 async def recognize_plate(file: UploadFile = File(...)):

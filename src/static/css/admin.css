@@ -1,0 +1,182 @@
+/* Styles for admin pages */
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    padding: 0;
+    box-shadow: inset -1px 0 0 rgba(0, 0, 0, .1);
+}
+
+.sidebar .nav-link {
+    color: #adb5bd;
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    border-left: 3px solid transparent;
+    transition: all 0.3s;
+}
+
+.sidebar .nav-link:hover {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .nav-link.active {
+    color: white;
+    border-left-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.logout-link {
+    color: #ff7875 !important;
+}
+
+.logout-link:hover {
+    background-color: rgba(255, 120, 117, 0.1);
+}
+
+/* Admin avatar */
+.admin-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-avatar i {
+    font-size: 30px;
+    color: #6c757d;
+}
+
+/* Cards */
+.card {
+    border-radius: 10px;
+    transition: transform 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+/* Statistics cards */
+.bg-primary, .bg-success, .bg-info, .bg-warning {
+    position: relative;
+    overflow: hidden;
+}
+
+.bg-primary::before, .bg-success::before, .bg-info::before, .bg-warning::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100%;
+    opacity: 0.2;
+    transform: skewX(-30deg) translateX(90%);
+    background: rgba(255, 255, 255, 0.5);
+    transition: transform 0.5s;
+}
+
+.card:hover.bg-primary::before, 
+.card:hover.bg-success::before, 
+.card:hover.bg-info::before, 
+.card:hover.bg-warning::before {
+    transform: skewX(-30deg) translateX(40%);
+}
+
+.card .card-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Tables */
+.table {
+    vertical-align: middle;
+}
+
+.license-plate-cell {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1.1rem;
+    padding: 0.25rem 0.5rem;
+    background-color: #ffeb3b;
+    border: 1px solid #ffc107;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.actions-cell {
+    white-space: nowrap;
+}
+
+/* Buttons */
+.action-btn {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    margin-right: 5px;
+}
+
+/* Responsive sidebar */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding-top: 56px;
+        width: 100%;
+        overflow-y: auto;
+    }
+    
+    .sidebar-backdrop {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 990;
+        background-color: rgba(0,0,0,0.5);
+    }
+}
+
+/* Badge status */
+.badge-success, .badge-danger, .badge-warning, .badge-info {
+    color: white;
+    padding: 0.4em 0.6em;
+    font-weight: 500;
+}
+
+.badge-success {
+    background-color: #28a745;
+}
+
+.badge-danger {
+    background-color: #dc3545;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.badge-info {
+    background-color: #17a2b8;
+}

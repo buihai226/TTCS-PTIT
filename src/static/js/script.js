@@ -1,4 +1,3 @@
-// DOM Elements
 const imageBtn = document.getElementById('imageBtn');
 const videoBtn = document.getElementById('videoBtn');
 const dropZone = document.getElementById('dropZone');
@@ -14,232 +13,242 @@ const demoBtn = document.getElementById('demoBtn');
 const clearResultsBtn = document.getElementById('clearResultsBtn');
 const copyBtn = document.getElementById('copyBtn');
 
-// License plate result elements
 const licensePlateText = document.getElementById('licensePlateText');
 const confidenceText = document.getElementById('confidenceText');
-const vehicleTypeText = document.getElementById('vehicleTypeText');
 const timestampText = document.getElementById('timestampText');
-const regionText = document.getElementById('regionText');
 
-// Current upload type
 let currentUploadType = 'image';
 
-// Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Upload type selection
+    console.log('DOM loaded');
+    if (!dropZone || !fileInput) {
+        console.error('dropZone or fileInput not found');
+        return;
+    }
     imageBtn.addEventListener('click', () => setUploadType('image'));
     videoBtn.addEventListener('click', () => setUploadType('video'));
-    
-    // File upload handling
     dropZone.addEventListener('click', () => fileInput.click());
     fileInput.addEventListener('change', handleFileSelect);
-    
-    // Drag and drop handling
     dropZone.addEventListener('dragover', handleDragOver);
     dropZone.addEventListener('dragleave', handleDragLeave);
     dropZone.addEventListener('drop', handleDrop);
-    
-    // Button actions
     recognizeBtn.addEventListener('click', processRecognition);
     demoBtn.addEventListener('click', showDemoResults);
     clearResultsBtn.addEventListener('click', clearResults);
     copyBtn.addEventListener('click', copyLicensePlate);
 });
 
-// Set upload type (image or video)
 function setUploadType(type) {
+    console.log('Setting upload type:', type);
     currentUploadType = type;
     
     if (type === 'image') {
-        imageBtn.classList.add('active');
+        imageBtn.classList.add('active', 'btn-primary');
         imageBtn.classList.remove('btn-outline-primary');
-        imageBtn.classList.add('btn-primary');
-        
-        videoBtn.classList.remove('active');
-        videoBtn.classList.remove('btn-primary');
+        videoBtn.classList.remove('active', 'btn-primary');
         videoBtn.classList.add('btn-outline-primary');
-        
         fileInput.setAttribute('accept', 'image/*');
         uploadPrompt.querySelector('h4').textContent = 'Kéo và thả hình ảnh vào đây';
         uploadPrompt.querySelector('p.small').textContent = 'Hỗ trợ: JPG, PNG, JPEG';
     } else {
-        videoBtn.classList.add('active');
+        videoBtn.classList.add('active', 'btn-primary');
         videoBtn.classList.remove('btn-outline-primary');
-        videoBtn.classList.add('btn-primary');
-        
-        imageBtn.classList.remove('active');
-        imageBtn.classList.remove('btn-primary');
+        imageBtn.classList.remove('active', 'btn-primary');
         imageBtn.classList.add('btn-outline-primary');
-        
         fileInput.setAttribute('accept', 'video/*');
         uploadPrompt.querySelector('h4').textContent = 'Kéo và thả video vào đây';
         uploadPrompt.querySelector('p.small').textContent = 'Hỗ trợ: MP4, MOV, AVI';
     }
-    
-    // Reset preview
     resetPreview();
 }
 
-// Handle file selection from input
 function handleFileSelect(e) {
     const file = e.target.files[0];
     if (!file) return;
-    
     displayFilePreview(file);
 }
 
-// Handle drag over event
 function handleDragOver(e) {
     e.preventDefault();
     e.stopPropagation();
     dropZone.classList.add('bg-light');
 }
 
-// Handle drag leave event
 function handleDragLeave(e) {
     e.preventDefault();
     e.stopPropagation();
     dropZone.classList.remove('bg-light');
 }
 
-// Handle drop event
 function handleDrop(e) {
     e.preventDefault();
     e.stopPropagation();
     dropZone.classList.remove('bg-light');
-    
     const file = e.dataTransfer.files[0];
     if (!file) return;
-    
-    // Check if file type matches current selection
     const fileType = file.type.split('/')[0];
     if ((currentUploadType === 'image' && fileType !== 'image') || 
         (currentUploadType === 'video' && fileType !== 'video')) {
         alert(`Vui lòng tải lên ${currentUploadType === 'image' ? 'hình ảnh' : 'video'}`);
         return;
     }
-    
     displayFilePreview(file);
 }
 
-// Display file preview
 function displayFilePreview(file) {
+    console.log('Displaying preview for file:', file.name);
     const fileType = file.type.split('/')[0];
-    
-    // Create object URL
     const objectUrl = URL.createObjectURL(file);
-    
-    // Hide upload prompt, show preview
     uploadPrompt.classList.add('d-none');
     previewContainer.classList.remove('d-none');
-    
-    // Display appropriate preview
     if (fileType === 'image') {
         imagePreview.src = objectUrl;
         imagePreview.classList.remove('d-none');
         videoPreview.classList.add('d-none');
-    } else if (fileType === 'video') {
+    } else {
         videoPreview.src = objectUrl;
         videoPreview.classList.remove('d-none');
         imagePreview.classList.add('d-none');
     }
-    
-    // Enable recognize button
     recognizeBtn.disabled = false;
 }
 
-// Reset preview
 function resetPreview() {
-    // Clear file input
     fileInput.value = '';
-    
-    // Show upload prompt, hide preview
     uploadPrompt.classList.remove('d-none');
     previewContainer.classList.add('d-none');
-    
-    // Clear previews
     imagePreview.src = '';
     videoPreview.src = '';
-    
-    // Disable recognize button
     recognizeBtn.disabled = true;
 }
 
-// Process recognition (simulated)
-function processRecognition() {
-    // Show loading state
+async function processRecognition() {
     recognizeBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Đang xử lý...';
     recognizeBtn.disabled = true;
-    
-    // Simulate processing delay
-    setTimeout(() => {
-        // Generate random license plate for demo
-        const results = {
-            licensePlate: '51F-123.45',
-            confidence: 98.7,
-            vehicleType: 'Sedan',
-            timestamp: new Date().toLocaleString('vi-VN'),
-            region: 'TP. Hồ Chí Minh'
-        };
-        
-        // Display results
-        displayResults(results);
-        
-        // Reset button
-        recognizeBtn.innerHTML = 'Nhận diện biển số xe';
+
+    const file = fileInput.files[0];
+    if (!file) {
+        alert('Vui lòng chọn một tệp!');
+        recognizeBtn.innerHTML = '<i class="fas fa-search me-1"></i> Nhận diện biển số xe';
         recognizeBtn.disabled = false;
-    }, 2000);
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+    const token = localStorage.getItem('authToken') || sessionStorage.getItem('authToken');
+    const headers = {};
+
+    if (token) {
+        headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    try {
+        console.log('Gửi yêu cầu tới http://localhost:8001/process');
+        const response = await fetch('http://localhost:8001/process', {
+            method: 'POST',
+            body: formData,
+            headers: headers    
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`Lỗi HTTP: ${response.status} - ${response.statusText} - ${errorText}`);
+        }
+
+        const data = await response.json();
+        console.log('Dữ liệu nhận được:', data);
+        displayResults(data);
+
+    } catch (error) {
+        console.error('Lỗi:', error);
+        alert(`Lỗi khi xử lý: ${error.message}. Kiểm tra backend có chạy trên cổng 8001 không.`);
+        resultsSection.classList.add('d-none');
+        noResultsSection.classList.remove('d-none');
+    } finally {
+        recognizeBtn.innerHTML = '<i class="fas fa-search me-1"></i> Nhận diện biển số xe';
+        recognizeBtn.disabled = false;
+    }
 }
 
-// Display recognition results
-function displayResults(results) {
-    // Update result fields
-    licensePlateText.textContent = results.licensePlate;
-    confidenceText.textContent = results.confidence + '%';
-    vehicleTypeText.textContent = results.vehicleType;
-    timestampText.textContent = results.timestamp;
-    regionText.textContent = results.region;
-    
-    // Show results section, hide no results section
+function displayResults(data) {
+    console.log('Hiển thị kết quả:', data);
     resultsSection.classList.remove('d-none');
     noResultsSection.classList.add('d-none');
-    
-    // Scroll to results
+
+    // Xóa nội dung cũ
+    licensePlateText.textContent = '';
+    confidenceText.textContent = '';
+    timestampText.textContent = '';
+    const allDetections = document.getElementById('allDetections');
+    if (allDetections) {
+        allDetections.innerHTML = '';
+    }
+
+    // Nếu không có phát hiện
+    if (!data.detections || data.detections.length === 0) {
+        resultsSection.classList.add('d-none');
+        noResultsSection.classList.remove('d-none');
+        noResultsSection.querySelector('h5').textContent = 'Không phát hiện được biển số';
+        noResultsSection.querySelector('p').textContent = data.message || 'Không có biển số nào được phát hiện';
+        return;
+    }
+
+    // Hiển thị phát hiện đầu tiên
+    const firstResult = data.detections[0];
+    licensePlateText.textContent = firstResult.license_plate;
+    confidenceText.textContent = firstResult.confidence.toFixed(2) + '%';
+    timestampText.textContent = data.timestamp;
+
+    // Hiển thị tất cả phát hiện
+    if (allDetections) {
+        let detectionList = '<h6>Tất cả phát hiện:</h6><ul class="list-unstyled">';
+        data.detections.forEach(det => {
+            detectionList += `
+                <li class="result-item">
+                    <div>
+                        <strong>Biển số:</strong> ${det.license_plate}<br>
+                        <strong>Độ tin cậy:</strong> ${det.confidence.toFixed(2)}%<br>
+                        <strong>Thời gian:</strong> ${det.timestamp}
+                    </div>
+                </li>`;
+        });
+        detectionList += '</ul>';
+        allDetections.innerHTML = detectionList;
+    }
+
     resultsSection.scrollIntoView({ behavior: 'smooth' });
 }
 
-// Show demo results
 function showDemoResults() {
     const demoResults = {
-        licensePlate: '51F-123.45',
-        confidence: 98.7,
-        vehicleType: 'Sedan',
-        timestamp: new Date().toLocaleString('vi-VN'),
-        region: 'TP. Hồ Chí Minh'
+        detections: [{
+            license_plate: '51F-123.45',
+            confidence: 98.7,
+            timestamp: new Date().toLocaleString('vi-VN')
+        }],
+        message: 'Phát hiện 1 biển số xe',
+        timestamp: new Date().toLocaleString('vi-VN')
     };
-    
     displayResults(demoResults);
 }
 
-// Clear results
 function clearResults() {
-    // Hide results section, show no results section
     resultsSection.classList.add('d-none');
     noResultsSection.classList.remove('d-none');
-    
-    // Reset preview
     resetPreview();
+    const allDetections = document.getElementById('allDetections');
+    if (allDetections) {
+        allDetections.innerHTML = '';
+    }
 }
 
-// Copy license plate to clipboard
 function copyLicensePlate() {
     const licensePlate = licensePlateText.textContent;
     navigator.clipboard.writeText(licensePlate)
         .then(() => {
-            // Change button text temporarily
             const originalText = copyBtn.innerHTML;
             copyBtn.innerHTML = '<i class="fas fa-check me-1"></i> Đã sao chép';
-            
             setTimeout(() => {
                 copyBtn.innerHTML = originalText;
             }, 2000);

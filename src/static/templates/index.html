@@ -9,7 +9,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
     <header class="bg-primary text-white py-3">
@@ -17,7 +17,25 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="h3 mb-0">Nhận Diện Biển Số Xe Việt Nam</h1>
                 <div>
-                    <button id="demoBtn" class="btn btn-outline-light btn-sm">
+                    <div class="btn-group" id="authButtons">
+                        <a href="login.html" class="btn btn-outline-light btn-sm">
+                            <i class="fas fa-sign-in-alt me-1"></i> Đăng nhập
+                        </a>
+                        <a href="register.html" class="btn btn-outline-light btn-sm ms-2">
+                            <i class="fas fa-user-plus me-1"></i> Đăng ký
+                        </a>
+                    </div>
+                    <div class="dropdown d-none" id="userDropdown">
+                        <button class="btn btn-outline-light btn-sm dropdown-toggle" type="button" id="userMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-user-circle me-1"></i> <span id="username">User</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenuButton">
+                            <li><a class="dropdown-item" href="admin.html" id="adminLink"><i class="fas fa-tachometer-alt me-2"></i>Quản trị hệ thống</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" id="logoutButton"><i class="fas fa-sign-out-alt me-2"></i>Đăng xuất</a></li>
+                        </ul>
+                    </div>
+                    <button id="demoBtn" class="btn btn-outline-light btn-sm ms-2">
                         <i class="fas fa-play-circle me-1"></i> Demo
                     </button>
                 </div>
@@ -97,7 +115,7 @@
                             </div>
                             <div class="result-item">
                                 <div class="result-label">Loại phương tiện:</div>
-                                <div class="result-value" id="vehicleTypeText">Sedan</div>
+                                <div class="result-value" id="vehicleTypeText">Chưa xác định</div>
                             </div>
                             <div class="result-item">
                                 <div class="result-label">Thời gian:</div>
@@ -105,7 +123,7 @@
                             </div>
                             <div class="result-item">
                                 <div class="result-label">Khu vực:</div>
-                                <div class="result-value" id="regionText">TP. Hồ Chí Minh</div>
+                                <div class="result-value" id="regionText">TP. Hà Nội</div>
                             </div>
                         </div>
                     </div>
@@ -116,14 +134,13 @@
 
     <footer class="bg-light py-3 mt-5">
         <div class="container text-center">
-            <p class="text-muted mb-0">© 2023 Nhận Diện Biển Số Xe Việt Nam</p>
+            <p class="text-muted mb-0">Nhận Diện Biển Số Xe Việt Nam</p>
         </div>
-    </footer>
-
-    <!-- Bootstrap JS -->
+    </footer>    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="script.js"></script>
+    <script src="../js/auth_functions.js"></script>
+    <script src="../js/script.js"></script>
 </body>
 </html>
 
